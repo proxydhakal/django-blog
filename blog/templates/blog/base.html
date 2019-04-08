@@ -1,0 +1,97 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% if title %}
+    <title>Django Blog - {{ title }}</title>
+    {% else %}
+    <title>Django Blog</title>
+    {% endif %}
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="{% static 'blog/main.css' %}">
+{#    <link rel="stylesheet" href="{% static 'blog/bootstrap.min.css' %}">#}
+{#    <link rel="stylesheet" href="{% static 'blog/bootstrap.css' %}">#}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+    <link href="https://fonts.googleapis.com/css?family=Assistant|Cinzel|Crete+Round|Gloria+Hallelujah" rel="stylesheet">
+
+<nav class="navbar navbar-expand-lg navbar-dark p-3" style="background-color: rgb( 2, 26, 36)">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+    <a class="navbar-brand" href="{% url 'default' %}">Django Blog</a>
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+         {% if user.is_authenticated %}
+      <li class="nav-item active">
+        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/about">About</a>
+      </li>
+
+    </ul>
+    <ul class="navbar-nav mr-left mt-2 mt-lg-0">
+
+            <li class="nav-item">
+        <a class="nav-link" href="{% url 'profile' %}">Profile</a>
+      </li>
+        <li class="nav-item">
+        <a class="nav-link" href="{% url 'logout' %}">LogOut</a>
+      </li>
+            <li class="nav-item">
+        <a class="nav-link" href="{% url 'post-create' %}">Add Post</a>
+      </li>
+        {% else %}
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'login' %}">Login</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'register' %}">Register</a>
+      </li>
+      {% endif %}
+    </ul>
+  </div>
+</nav>
+
+</head>
+<body style="background-color:rgb( 134, 184, 193)">
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+          {% block content %}{% endblock %}
+        </div>
+        <div class="col-md-4">
+            <div class="card-header mt-3">
+                <h4>Our Sidebar</h4>
+            </div>
+
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Latest Post</li>
+                <li class="list-group-item">Announcement</li>
+                <li class="list-group-item">Calander</li>
+            </ul>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+
+<footer class="footer p-2 mt-3" style="background-color: rgb( 2, 26, 36)">
+ <p class="copyright">&copy; 2019 Django Blog Created by <a href="https://www.shekhardhakal.com.np">Shekhar Dhakal</a>
+      </p>
+</footer>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" ></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</html>

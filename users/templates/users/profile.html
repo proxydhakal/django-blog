@@ -1,0 +1,64 @@
+{% extends "blog/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="card mt-3">
+  <img src="{{ user.profile.image.url }}" alt="Default" style="width:100%">
+  <h1>{{ user.username }}</h1>
+  <p class="title">CEO & Founder</p>
+  <p>Email: {{ user.email }}</p>
+  <button class="btn btn-sm btn-primary mb-2" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Update Profile</button>
+</div>
+
+ <div class="collapse" id="collapseExample">
+  <div class="card card-body">
+    <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4"> Profile Info</legend>
+                {{ u_form|crispy }}
+                {{ p_form|crispy }}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-info" type="submit">Update</button>
+            </div>
+ </form>
+
+
+  </div>
+
+</div>
+
+<style>
+    .card {
+  box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.2);
+  max-width: 600px;
+  margin: auto;
+  text-align: center;
+}
+
+.title {
+  color: grey;
+  font-size: 18px;
+}
+
+button {
+  border: none;
+  outline: 0;
+  display: inline-block;
+  padding: 8px;
+  color: white;
+  background-color: #000;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+  font-size: 18px;
+}
+
+
+button:hover, a:hover {
+  opacity: 0.7;
+}
+</style>
+
+{% endblock content %}
+
